@@ -1,0 +1,65 @@
+USE [GuiaTuristico]
+GO
+/****** Object:  Table [dbo].[CIUDAD]    Script Date: 6/6/2021 10:23:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CIUDAD](
+	[codigo_ciudad] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[posicion_x] [int] NOT NULL,
+	[posicion_y] [int] NOT NULL,
+ CONSTRAINT [PK_Ciudad] PRIMARY KEY CLUSTERED 
+(
+	[codigo_ciudad] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CAMINO]    Script Date: 6/6/2021 10:23:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CAMINO](
+	[codigo_camino] [int] NOT NULL,
+	[ciudad_origen] [int] NOT NULL,
+	[ciudad_destino] [int] NOT NULL,
+	[distancia] [int] NOT NULL,
+ CONSTRAINT [PK_Camino] PRIMARY KEY CLUSTERED 
+(
+	[codigo_camino] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [AK_CAMINO] UNIQUE NONCLUSTERED 
+(
+	[ciudad_origen] ASC,
+	[ciudad_destino] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[CAMINO_CIUDADES]    Script Date: 6/6/2021 10:23:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[CAMINO_CIUDADES]
+AS
+SELECT	
+CAMINO.codigo_camino, 
+(SELECT CIUDAD_O.nombre WHERE CIUDAD_O.codigo_ciudad = CAMINO.ciudad_origen) AS ciudad_origen, 
+(SELECT CIUDAD_D.nombre WHERE CIUDAD_D.codigo_ciudad = CAMINO.ciudad_destino) AS ciudad_destino, 
+CAMINO.distancia
+FROM CAMINO 
+INNER JOIN CIUDAD AS CIUDAD_O ON CAMINO.ciudad_origen = CIUDAD_O.codigo_ciudad
+INNER JOIN CIUDAD AS CIUDAD_D ON CAMINO.ciudad_destino = CIUDAD_D.codigo_ciudad
+GO
+ALTER TABLE [dbo].[CAMINO]  WITH CHECK ADD  CONSTRAINT [FK_Ciudad_Destino] FOREIGN KEY([ciudad_destino])
+REFERENCES [dbo].[CIUDAD] ([codigo_ciudad])
+GO
+ALTER TABLE [dbo].[CAMINO] CHECK CONSTRAINT [FK_Ciudad_Destino]
+GO
+ALTER TABLE [dbo].[CAMINO]  WITH CHECK ADD  CONSTRAINT [FK_Ciudad_Origen] FOREIGN KEY([ciudad_origen])
+REFERENCES [dbo].[CIUDAD] ([codigo_ciudad])
+GO
+ALTER TABLE [dbo].[CAMINO] CHECK CONSTRAINT [FK_Ciudad_Origen]
+GO
