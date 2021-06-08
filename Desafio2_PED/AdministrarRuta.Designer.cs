@@ -63,6 +63,8 @@ namespace Desafio2_PED
             this.comboBoxCaminos = new System.Windows.Forms.ComboBox();
             this.EliminarCiudad = new System.Windows.Forms.Button();
             this.comboBoxCiudades = new System.Windows.Forms.ComboBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.peso)).BeginInit();
@@ -236,6 +238,8 @@ namespace Desafio2_PED
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button5);
+            this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.cmboxPuntoDestino);
             this.groupBox3.Controls.Add(this.cmboxPuntoOrigen);
@@ -243,7 +247,7 @@ namespace Desafio2_PED
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Location = new System.Drawing.Point(797, 50);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 414);
+            this.groupBox3.Size = new System.Drawing.Size(334, 414);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Obtener Ruta";
@@ -394,11 +398,35 @@ namespace Desafio2_PED
             this.comboBoxCiudades.TabIndex = 0;
             this.comboBoxCiudades.ValueMember = "codigo_ciudad";
             // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(19, 250);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(121, 23);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "Profundidad";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Location = new System.Drawing.Point(19, 300);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(121, 23);
+            this.button5.TabIndex = 6;
+            this.button5.Text = "Anchura";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // AdministrarRuta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1182, 779);
+            this.ClientSize = new System.Drawing.Size(1379, 779);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.textBoxRuta);
             this.Controls.Add(this.groupBox3);
@@ -463,5 +491,7 @@ namespace Desafio2_PED
         private System.Windows.Forms.BindingSource cIUDADBindingSource1;
         private System.Windows.Forms.BindingSource cIUDADBindingSource2;
         private System.Windows.Forms.BindingSource cIUDADBindingSource3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }

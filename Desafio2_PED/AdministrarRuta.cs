@@ -1,5 +1,6 @@
 ﻿using Desafio2_PED.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -17,7 +18,13 @@ namespace Desafio2_PED
         private List<Arco> Arcos = new List<Arco>();
         private List<int> Ruta = new List<int>();//lista de enteros
         Point coordenadas = new Point(); // 
-        
+        private Vertice NodoOrigen; // instanciamos la clase  
+        private Vertice NodoDestino; // instanciamos la clase  
+        bool profundidad = false, anchura = false, nodoEncontrado = false;
+        private string destino = "", origen = "";
+        private int distancia = 0;
+        Queue cola = new Queue(); //para el recorrido de anchura
+
         public AdministrarRuta()
         {
             InitializeComponent();
@@ -104,7 +111,14 @@ namespace Desafio2_PED
             }
             if (Ruta.Count > 0)
                 DibujarVertice(Ruta.Count - 1, true);
-        }
+
+            if (anchura)
+            { distancia = 0;
+                //ordenando los nodos desde el que indica el usuario
+                cola = new Queue();
+
+            }
+         }
 
 
 
@@ -294,6 +308,27 @@ namespace Desafio2_PED
             Vertices.RemoveAt(ciudad);
             this.cIUDADTableAdapter.Fill(this.guiaTuristicoDataSet.CIUDAD);
             panelMapa.Invalidate();
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (cmboxPuntoOrigen.SelectedIndex > -1)
+            {
+                origen = cmboxPuntoOrigen.SelectedItem.ToString();
+                anchura = true;
+                panelMapa.Refresh();
+                cmboxPuntoOrigen.SelectedIndex = -1;
+            }
+            else
+            {
+                
+                MessageBox.Show("eleccione un nodo de partida");
+            }
         }
     }
 }
