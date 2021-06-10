@@ -199,13 +199,18 @@ namespace Desafio2_PED
             {
                 MessageBox.Show("No ha seleccionado un vertice");
                 return;
-            }
+            } catch(SqlException) { MessageBox.Show("Camino Existente"); return; }
 
             MessageBox.Show("El Camino Fue Agregado");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (cmboxPuntoOrigen.SelectedIndex <=  -1)
+            {
+                MessageBox.Show("Seleccione un nodo de partida");
+                return;
+            }
             int origen = Int32.Parse(cmboxPuntoOrigen.SelectedValue.ToString());
             int destino = Int32.Parse(cmboxPuntoDestino.SelectedValue.ToString());
             int[,] adyacencia = new int[Vertices.Count, Vertices.Count];
@@ -312,7 +317,18 @@ namespace Desafio2_PED
 
         private void button4_Click_1(object sender, EventArgs e)
         {
+            if (cmboxPuntoOrigen.SelectedIndex > -1)
+            {
+                origen = cmboxPuntoOrigen.SelectedItem.ToString();
+                profundidad = true;
+                panelMapa.Refresh();
+                cmboxPuntoOrigen.SelectedIndex = -1;
+            }
+            else
+            {
 
+                MessageBox.Show("Seleccione un nodo de partida");
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -327,7 +343,7 @@ namespace Desafio2_PED
             else
             {
                 
-                MessageBox.Show("eleccione un nodo de partida");
+                MessageBox.Show("Seleccione un nodo de partida");
             }
         }
     }
